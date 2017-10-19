@@ -1,5 +1,6 @@
  import React from 'react';
- import api from './stubAPI'
+ import api from './stubAPI';
+ import buttons from './config/buttonsConfig';
 
     class Table extends React.Component {
       render() {
