@@ -1,6 +1,6 @@
  import React from 'react';
  import api from './stubAPI';
- import buttons from './config/buttonsConfig';
+ import buttons from './Button';
 
     class Table extends React.Component {
       render() {
@@ -22,25 +22,63 @@
     }
 
     class Student extends React.Component {
-      render() {
-          return (
-            <tr >
-              <td>
-                 { this.props.student.name }
-              </td>
-              <td>
-                 {this.props.student.id }
-              </td>
-              <td>
-                 <input type="button" className="btn btn-primary" value="Edit"/>
-              </td>  
-              <td>
-                 <input type="button" className="btn btn-danger" value="Delete"/>
-              </td>                      
-          </tr>
+      state = {
+          status : '',
+          name: this.props.student.name,
+          id: this.props.student.id,
+        };
 
-            ) ;
-        }
+      handleEdit = () =>  this.setState({ status : 'edit'} );
+
+          handleSave = (e) =>  null ;              
+
+          handleCancel = function() {
+              this.setState({ status : '', 
+                    name: this.props.contact.name,
+                    id: this.props.contact.id}) ;
+          }.bind(this);
+
+          handleNameChange = (e) =>  this.setState({name: e.target.value});
+
+          handleIdChange = (e) => this.setState({id: e.target.value});
+
+      render() {
+             let activeButtons = buttons.normal ;
+             let leftButtonHandler = this.handleEdit ;
+             let rightButtonHandler = null ;
+             let fields = [
+                     <td key={'name'} >{this.state.name}</td>,
+                      <td key={'id'}>{this.state.id}</td>,
+                   ] ; 
+              if (this.state.status === 'edit' ) {
+                   activeButtons = buttons.edit ;
+                   leftButtonHandler = this.handleSave;
+                   rightButtonHandler = this.handleCancel ;
+                   fields = [
+                      <td key={'name'}><input type="text" className="form-control"
+                         value={this.state.name}
+                         onChange={this.handleNameChange} /> </td>,
+                      <td key={'id'}><input type="text" className="form-control"
+                         value={this.state.id}
+                         onChange={this.handleIdChange} /> </td>,
+                   ] ;
+               }
+              return (
+                    <tr >
+                      {fields}
+                      <td>
+                          <input type="button" className={'btn ' + activeButtons.leftButtonColor} 
+                                 value={activeButtons.leftButtonVal}
+                                 onClick={leftButtonHandler} />
+                      </td>
+                      <td>
+                         <input type="button" className={'btn ' + activeButtons.rightButtonColor} 
+                               value={activeButtons.rightButtonVal} 
+                               onClick={rightButtonHandler} />
+                      </td>
+                      </tr>
+                   ) ; 
+          }
     }
 
     class StudentsApp extends React.Component {
