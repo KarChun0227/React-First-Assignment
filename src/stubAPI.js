@@ -13,7 +13,7 @@
 
                 {
                     'name': 'Chee Ming Tan',
-                    'id':'7890',
+                    'id':'78904',
                     'address': '23 Main St',
                     'phone_number': '934-4329'
                 }, 
@@ -27,7 +27,7 @@
 
                 {
                     'name': 'Shushi',
-                    'id':'2345',
+                    'id':'23452',
                     'address': '49 Upper Street',
                     'phone_number': '934-4290'
                 }
