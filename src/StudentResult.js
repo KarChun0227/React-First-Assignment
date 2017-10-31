@@ -1,25 +1,42 @@
 import React from 'react';
-import localCache from './localCache';
+import localCache from './LocalCache';
 import request from 'superagent' ; 
 
+class ImagesSection extends React.Component { 
+      render(){
+          var mainImage = (
+            <div className="student-images">
+              <img src={"/StduentDetail/" + this.props.student.images} 
+                    alt={this.props.student.name}
+                    className="student" />
+            </div>
+            ) ;
+            return (
+                <div>
+                   {mainImage}
+                   <h1>{this.props.student.name}</h1>
+                  </div>
+                  );
+          }
+    };
 
-    class PhoneDetail extends React.Component {
+    class StudentResult extends React.Component {
         state = { };
 
        componentDidMount() {
           request.get(
-             '/phoneSpecs/phones/' + this.props.params.id + '.json', (err, res) => {
+             '/StduentDetail/result/' + this.props.params.id + '.json', (err, res) => {
                 let json = JSON.parse(res.text);
-                localCache.setPhone(json);
+                localCache.setStudent(json);
                 this.setState({});
            }) ;
       } 
 
       render(){
           let display = <p>No phone details</p> ; 
-          let phone = localCache.getPhone();
-          if (phone) {
-              display =  <ImagesSection phone={phone} /> ;
+          let student = localCache.getStudent();
+          if (student) {
+              display = <ImagesSection student={student} /> ;
           }
           return (
             <div>
@@ -29,4 +46,4 @@ import request from 'superagent' ;
       }
     };
 
-    export default PhoneDetail;
+    export default StudentResult;

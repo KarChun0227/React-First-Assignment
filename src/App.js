@@ -1,6 +1,7 @@
  import React from 'react';
  import api from './stubAPI';
  import buttons from './Button';
+ import { Link } from 'react-router'; 
 
     class Table extends React.Component {
       render() {
@@ -10,7 +11,6 @@
                   <tr>
                   <th>Name</th>
                   <th>ID</th>
-                  <th></th>
                   <th></th>
                   <th></th>
                   </tr>
@@ -30,7 +30,9 @@
 
       handleEdit = () =>  this.setState({ status : 'edit'} );
 
-          handleSave = (e) =>  null ;              
+          handleSave = (e) =>  null ;
+
+          handleLink = (e) => this.setState({status: 'Result'});              
 
           handleCancel = function() {
               this.setState({ status : '', 
@@ -45,9 +47,9 @@
       render() {
              let activeButtons = buttons.normal ;
              let leftButtonHandler = this.handleEdit ;
-             let rightButtonHandler = null ;
+             let rightButtonHandler = this.handleLink ;
              let fields = [
-                     <td key={'name'} >{this.state.name}</td>,
+                      <Link to="/result/ + this.state.id"><td key={'name'} >{this.state.name}</td></Link>,
                       <td key={'id'}>{this.state.id}</td>,
                    ] ; 
               if (this.state.status === 'edit' ) {
@@ -103,7 +105,7 @@
           return (
               <tbody >
                   {studentRows}
-                  <studentForm />
+                  <StudentForm />
               </tbody>
             ) ;
         }
@@ -115,9 +117,6 @@
           <tr>
             <td>
             <input type="text" className="form-control" />
-            </td>
-            <td>
-            <input type="text" className="form-control"/>
             </td>
             <td>
             <input type="text" className="form-control" />

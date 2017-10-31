@@ -2,14 +2,14 @@ import '../node_modules/bootstrap/dist/css/bootstrap.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
-import PhoneDetail from './StudentResult';
+import StudentResult from './StudentResult';
+import Student from './App';
 
 
  class App extends React.Component {
           render() {
             return (
               <div>
-                <h1>Phone Catalogue </h1>
                 {this.props.children}
               </div>
             )
@@ -19,7 +19,7 @@ import PhoneDetail from './StudentResult';
 ReactDOM.render( 
               <Router history={browserHistory} >
                 <Route path="/" component={App}>
-                   <IndexRoute component={StudentList}/>
+                   <IndexRoute component={Student}/>
                    <Route path="result/:id" component={StudentResult} />
                 </Route>
               </Router>
