@@ -30,16 +30,16 @@
 
       handleEdit = () =>  this.setState({ status : 'edit'} );
 
-          handleSave = () =>  api.update(this.state.id, this.state.name);
+          handleSave =  api.update(this.state.id, this.state.name);
 
-          handleDel = () => api.delete(this.state.id);
+          handleDel =  api.delete(this.state.id);
 
-          handleDelete = (e) => this.setState({status: 'delete'});              
+          handleDelete = () => this.setState({status: 'delete'});              
 
           handleCancel = function() {
               this.setState({ status : '', 
-                    name: this.props.contact.name,
-                    id: this.props.contact.id}) ;
+                    name: this.props.student.name,
+                    id: this.props.student.id}) ;
           }.bind(this);
 
           handleNameChange = (e) =>  this.setState({name: e.target.value});
@@ -53,7 +53,7 @@
              let fields = [
                       <Link to={'/result/' + this.state.id}><td key={'name'} >{this.state.name}</td></Link>,
                       <td key={'id'}>{this.state.id}</td>,
-                   ] ; 
+                   ] ;
               if (this.state.status === 'edit' ) {
                    activeButtons = buttons.edit ;
                    leftButtonHandler = this.handleSave;
@@ -69,7 +69,7 @@
                }
 
                if (this.state.status === 'delete'){
-                  activeButtons == buttons.delete;
+                  activeButtons = buttons.delete;
                   leftButtonHandler = buttons.normal;
                   rightButtonHandler = this.handleDel;
                 }
@@ -113,28 +113,10 @@
           return (
               <tbody >
                   {studentRows}
-                  <StudentForm />
               </tbody>
             ) ;
         }
     }
 
-  class StudentForm extends React.Component {
-      render() {
-        return (
-          <tr>
-            <td>
-            <input type="text" className="form-control" />
-            </td>
-            <td>
-            <input type="text" className="form-control" />
-            </td>
-            <td>
-            <input type="button" className="btn btn-primary" value="Add"/>
-            </td>
-          </tr>
-          )
-      }
-    }
 
   export default StudentsApp;

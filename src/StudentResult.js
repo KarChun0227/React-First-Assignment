@@ -33,13 +33,16 @@ class ImagesSection extends React.Component {
       } 
 
       render(){
-          let display = <p>Result</p> ; 
+          let display2 = <h1>StudentResult</h1>;
+          let display = null; 
           let student = localCache.getStudent();
           if (student) {
               display = <ImagesSection student={student} /> ;
           }
           return (
             <div>
+              {display2}
+              <p>{this.props.params.name}</p>
               {display}
             </div>
             );

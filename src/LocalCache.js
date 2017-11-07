@@ -1,4 +1,4 @@
-class localCache {
+class LocalCache {
 
         constructor() {
            this.student = null ;
@@ -14,4 +14,4 @@ class localCache {
 
     }
 
-    export default (new localCache() );
+    export default (new LocalCache() );
