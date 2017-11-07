@@ -1,11 +1,11 @@
     var buttons = {
        normal : { 
            leftButtonVal : 'Edit',
-           rightButtonVal : 'Result',
+           rightButtonVal : 'Delete',
            leftButtonColor : 'btn-primary',
            rightButtonColor : 'btn-danger'
             },
-       result : { 
+       delete : { 
            leftButtonVal : 'Undo' ,
            rightButtonVal : 'Go' ,
            leftButtonColor : 'btn-success',

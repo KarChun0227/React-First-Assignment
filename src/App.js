@@ -30,9 +30,11 @@
 
       handleEdit = () =>  this.setState({ status : 'edit'} );
 
-          handleSave = (e) =>  null ;
+          handleSave = () =>  api.update(this.state.id, this.state.name);
 
-          handleLink = (e) => this.setState({status: 'Result'});              
+          handleDel = () => api.delete(this.state.id);
+
+          handleDelete = (e) => this.setState({status: 'delete'});              
 
           handleCancel = function() {
               this.setState({ status : '', 
@@ -47,9 +49,9 @@
       render() {
              let activeButtons = buttons.normal ;
              let leftButtonHandler = this.handleEdit ;
-             let rightButtonHandler = this.handleLink ;
+             let rightButtonHandler = this.handleDelete ;
              let fields = [
-                      <Link to="/result/ + this.state.id"><td key={'name'} >{this.state.name}</td></Link>,
+                      <Link to={'/result/' + this.state.id}><td key={'name'} >{this.state.name}</td></Link>,
                       <td key={'id'}>{this.state.id}</td>,
                    ] ; 
               if (this.state.status === 'edit' ) {
@@ -65,6 +67,12 @@
                          onChange={this.handleIdChange} /> </td>,
                    ] ;
                }
+
+               if (this.state.status === 'delete'){
+                  activeButtons == buttons.delete;
+                  leftButtonHandler = buttons.normal;
+                  rightButtonHandler = this.handleDel;
+                }
               return (
                     <tr >
                       {fields}

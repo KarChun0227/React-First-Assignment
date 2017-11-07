@@ -25,7 +25,7 @@ class ImagesSection extends React.Component {
 
        componentDidMount() {
           request.get(
-             '/StduentDetail/result/' + this.props.params.id + '.json', (err, res) => {
+             '/studentDetail/result/' + this.props.params.id + '.json', (err, res) => {
                 let json = JSON.parse(res.text);
                 localCache.setStudent(json);
                 this.setState({});
@@ -33,7 +33,7 @@ class ImagesSection extends React.Component {
       } 
 
       render(){
-          let display = <p>No phone details</p> ; 
+          let display = <p>Result</p> ; 
           let student = localCache.getStudent();
           if (student) {
               display = <ImagesSection student={student} /> ;

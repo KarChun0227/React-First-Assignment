@@ -6,30 +6,22 @@
             this.students = [
                 {
                     'name': 'Karchun Goh',
-                    'id':'34568',
-                    'address': '123 Test St',
-                    'phone_number': '132-3212'
+                    'id':'34568'
                 },
 
                 {
                     'name': 'Chee Ming Tan',
-                    'id':'78904',
-                    'address': '23 Main St',
-                    'phone_number': '934-4329'
+                    'id':'78904'
                 }, 
 
                 {
                     'name': 'April',
-                    'id':'78906',
-                    'address': '4 Lower St',
-                    'phone_number': '432-5832'
+                    'id':'78906'
                 },
 
                 {
                     'name': 'Shushi',
-                    'id':'23452',
-                    'address': '49 Upper Street',
-                    'phone_number': '934-4290'
+                    'id':'23452'
                 }
             ] ; 
         }
@@ -45,20 +37,20 @@
             return this.students;
         }
 
-        add(n,i,a,p) {
+        add(n,i) {
             let len = this.students.length ;
             let newLen = this.students.push({
-                name: n,id: i, address : a, phone_number: p }) ;
+                name: n,id: i}) ;
             return newLen > len ;
         }
 
-        update(key,n,i,a,p) {
+        update(key,n) {
             var index = _.findIndex(this.students, 
                 (student) => student.id === key
             );      
             if (index !== -1) {
                 this.students.splice(index, 1, 
-                    {name: n, id: i, address: a, phone_number: p});
+                    {name: n});
                 return true ;
             }
             return false ;
