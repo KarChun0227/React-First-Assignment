@@ -6,6 +6,7 @@
     "bootstrap": "^3.3.6",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
+    "react-http-request": "^1.0.3",
     "react-router": "^2.6.1",
     "react-scripts": "1.0.13",
     "superagent": "^1.6.1"
