@@ -3,41 +3,42 @@
  import buttons from './Button';
  import { Link } from 'react-router'; 
 
-    class Table extends React.Component {
-      render() {
-          return (
-            <table className="table table-bordered">
-                <thead>
-                  <tr>
-                  <th>Name</th>
-                  <th>ID</th>
-                  <th></th>
-                  <th></th>
-                  </tr>
-                </thead>
-                  <StudentList students={this.props.students}/>
-            </table>
-            );
-      }
-    }
+
 
     class Student extends React.Component {
       state = {
-          status : '',
+          status : 'normal',
           name: this.props.student.name,
-          id: this.props.student.id,
+          id: this.props.student.id
         };
 
       handleEdit = () =>  this.setState({ status : 'edit'} );
 
-          handleSave =  api.update(this.state.id, this.state.name);
+        handleSave = (e) => {
+        e.preventDefault();
+        let name = this.state.name.trim();
+        let id = this.state.id.trim();
+        if (!name || !id) {
+          return;
+        }
+        this.setState({status : 'normal'} );
+        this.props.updateHandler(this.props.student.id, name);
+      }; 
 
-          handleDel =  api.delete(this.state.id);
+          handleDel = function(e) {
+            e.preventDefault();
+            let id = this.state.id.trim();
+            if (!id){
+              return;
+            }
+            this.setState({status: 'normal'});
+            this.props.delHandler(this.props.student.id);
+          }.bind(this);
 
           handleDelete = () => this.setState({status: 'delete'});              
 
           handleCancel = function() {
-              this.setState({ status : '', 
+              this.setState({ status : 'normal', 
                     name: this.props.student.name,
                     id: this.props.student.id}) ;
           }.bind(this);
@@ -70,9 +71,10 @@
 
                if (this.state.status === 'delete'){
                   activeButtons = buttons.delete;
-                  leftButtonHandler = buttons.normal;
+                  leftButtonHandler = this.handleCancel;
                   rightButtonHandler = this.handleDel;
                 }
+
               return (
                     <tr >
                       {fields}
@@ -91,24 +93,13 @@
           }
     }
 
-    class StudentsApp extends React.Component {
-      render() {
-        var students = api.getAll() ;
-          return (
-                <div>
-                   <h1>Student List.</h1>
-                   <Table students={students}  />
-                </div>
-          );
-      }
-    }
+
 
 
   class StudentList extends React.Component {
       render() {
-         var studentRows =   this.props.students.map(
-                function(c) {
-                     return <Student key={c.id} student={c} />
+         var studentRows =   this.props.students.map((c) => {
+                     return <Student key={c.id} student={c} updateHandler={this.props.updateHandler} delHandler={this.props.delHandler}/>
                 });
           return (
               <tbody >
@@ -116,6 +107,45 @@
               </tbody>
             ) ;
         }
+    }
+    class Table extends React.Component {
+      render() {
+          return (
+            <table className="table table-bordered">
+                <thead>
+                  <tr>
+                  <th>Name</th>
+                  <th>ID</th>
+                  <th></th>
+                  <th></th>
+                  </tr>
+                </thead>
+                  <StudentList students={this.props.students} updateHandler={this.props.updateHandler} delHandler={this.props.delHandler}/>
+            </table>
+            );
+      }
+    }
+
+    class StudentsApp extends React.Component {
+      updateStudent = (key, n) => {
+            api.update(key,n); 
+            this.setState({});  
+          };
+      delStudent = (key) => {
+        api.delete(key);
+        this.setState({});
+      };
+      render() {
+        var students = api.getAll();
+          return (
+                <div>
+                   <h1>Student List.</h1>
+                   <Table students={students} updateHandler={this.updateStudent} handleDel={this.delStudent}/>
+                </div>
+          );
+        
+
+      }
     }
 
 

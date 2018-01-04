@@ -6,7 +6,7 @@ class ImagesSection extends React.Component {
       render(){
           var mainImage = (
             <div className="student-images">
-              <img src={"/StduentDetail/" + this.props.student.images} 
+              <img src={"/studentDetail/" + this.props.student.images} 
                     alt={this.props.student.name}
                     className="student" />
             </div>
@@ -14,7 +14,7 @@ class ImagesSection extends React.Component {
             return (
                 <div>
                    {mainImage}
-                   <h1>{this.props.student.name}</h1>
+                   { this.props.student.Name }
                   </div>
                   );
           }
@@ -36,9 +36,12 @@ class ImagesSection extends React.Component {
           let display2 = <h1>StudentResult</h1>;
           let display = null; 
           let student = localCache.getStudent();
+          console.log(student)
           if (student) {
               display = <ImagesSection student={student} /> ;
+
           }
+          // this.setState({});
           return (
             <div>
               {display2}
